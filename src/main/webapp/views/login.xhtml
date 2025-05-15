@@ -1,0 +1,56 @@
+<ui:composition template="/layout/page.xhtml"
+	xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+	
+		<div id="message">
+            <p:ajaxStatus style="display:block; margin-top:.5em;">
+                <f:facet name="default">
+                    <h:outputText value="Por favor, ingresa tus credenciales." />
+                </f:facet>
+                <f:facet name="start">
+                    <h:outputText value="Conectando con la base de datos..." />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="Error de conexión. Inténtalo nuevamente." />
+                </f:facet>
+            </p:ajaxStatus>
+        </div>  
+    
+        <h:form id="loginForm">
+            <p:growl id="msg" showDetail="true" life="4000" />
+            <p:panel id="loginPnl" header="Iniciar sesión" style="max-width: 400px; margin: 0 auto;">
+                
+                <h:panelGrid columns="2" cellpadding="5" style="width: 100%;">     
+                                                  
+                    <h:outputLabel for="username" value="Correo electrónico"/>
+                    <p:inputText id="username" value="#{userController.user.username}" required="true"
+                             requiredMessage="El correo es obligatorio." styleClass="input-field"/>
+                    <p:message for="username" />
+                    
+					<p:spacer/>
+						
+                    <h:outputLabel for="password" value="Contraseña"/>
+                    <p:password id="password" value="#{userController.user.password}" required="true"
+                             requiredMessage="La contraseña es obligatoria." feedback="false" styleClass="input-field"/>
+                    <p:message for="password" />
+                    
+                </h:panelGrid>
+                
+                <h:panelGrid columns="1" cellpadding="10" width="100%">             
+                    <p:commandButton id="loginButton" action="#{userController.login}" value="Ingresar"
+                    update="loginForm msg" ajax="true" icon="pi pi-sign-in" style="float: right;"  styleClass="ui-button-secondary"/>
+                </h:panelGrid>          
+            </p:panel>
+            
+            <p:blockUI block="loginPnl" trigger="loginButton">
+                <p:graphicImage value="resources/image/loader.gif" />
+                <h:outputText value="Procesando login..." />
+            </p:blockUI>
+        </h:form>
+		
+	</ui:define>
+</ui:composition>

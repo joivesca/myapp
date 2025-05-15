@@ -1,0 +1,24 @@
+<ui:composition template="/layout/page.xhtml"
+	xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets">
+
+	<ui:define name="content">
+	    <h:form id="register">
+
+    		
+        <h:outputLabel value="Usuario: "/>
+        <h:inputText value="#{userController.user.username}"/>
+
+        <h:outputLabel value="Email: "/>
+        <h:inputText value="#{userController.user.email}"/>
+
+        <h:outputLabel value="Contraseña: "/>
+        <h:inputSecret value="#{userController.user.password}"/>
+
+        <h:commandButton value="Registrarse" action="#{userController.register}"/>
+    </h:form>
+
+
+	</ui:define>
+</ui:composition>

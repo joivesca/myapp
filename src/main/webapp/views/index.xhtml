@@ -1,0 +1,33 @@
+<ui:composition template="/layout/page.xhtml"
+	xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+    	<h:panelGroup id="content">
+			<h2>#{msg['index.title']}</h2>
+			<p>#{msg['index.subtitle']}</p>
+		</h:panelGroup>
+		
+		<h:form id="mainForm">
+			<p:button value="Submit" />
+    <p:button value="Disabled" disabled="true" />
+    <i class="pi pi-check" style="font-size: 2rem"></i>
+<!-- 			<h:panelGrid columns="2" cellpadding="5"> -->
+<!-- 				<h:inputText id="phone" value="#{indexController.current.phone}" label="First" > -->
+<!-- 					<f:validateLength minimum="10" maximum="10"/> -->
+<!-- 				</h:inputText> -->
+<!--                 <h:message for="phone" /> -->
+<!--             </h:panelGrid> -->
+<!-- 			<br/> -->
+            
+<!--             <h:commandButton value="#{msg['form.submit']}" action="#{edaController.submit}"> -->
+<!--                 <f:ajax execute="@form" render="@form messages"/> -->
+<!--             </h:commandButton> -->
+       
+
+        </h:form>
+	</ui:define>
+
+</ui:composition>

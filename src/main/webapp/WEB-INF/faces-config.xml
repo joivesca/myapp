@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+              	https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+              version="4.0">
+	
+	<factory>
+		<exception-handler-factory>com.onndoo.myapp.config.CustomExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+<!-- 	<navigation-rule> -->
+<!-- 		<description>Login Page NAvigation Handling</description> -->
+<!-- 		<from-view-id>/views/login.xhtml</from-view-id> -->
+<!-- 		<navigation-case> -->
+<!-- 			<description>Handle case where login succeeded.</description> -->
+<!-- 			<display-name>Successful Login</display-name> -->
+<!-- 			<from-action>#{loginController.login}</from-action> -->
+<!-- 			<from-outcome>success</from-outcome> -->
+<!-- 			<to-view-id>/views/index.xhtml</to-view-id> -->
+<!-- 		</navigation-case> -->
+<!-- 	</navigation-rule> -->
+	
+	<application>	  
+		
+		<locale-config>
+        	<default-locale>en</default-locale>        	
+        	<supported-locale>es</supported-locale>        	
+    	</locale-config>
+		<message-bundle>messages</message-bundle>
+		
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msg</var>
+		</resource-bundle>		
+		
+	</application>
+              
+</faces-config>

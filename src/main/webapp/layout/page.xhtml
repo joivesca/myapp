@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	lang="#{localeBean.languageTag}" 
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core" 	
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:c="jakarta.tags.core"
+	xmlns:fn="jakarta.tags.functions"
+	xmlns:p="http://primefaces.org/ui">
+
+<c:set var="page" value="page#{fn:replace(fn:split(view.viewId, '.')[0], '/', '_')}" scope="view" />
+
+<f:view locale="#{localeBean.locale}">
+	<f:metadata>
+        <f:event type="preRenderView" listener="#{userController.redirectIfLoggedIn}" />
+    </f:metadata>
+    
+	<h:head>
+		<meta charset="UTF-8"/>
+	    <title>#{msg[page += '.title']}</title>
+	    <meta name="description" content="#{msg[page += '.meta.description']}"/>
+	    <h:outputLink rel="icon" type="image/x-icon" value="#{facesContext.externalContext.requestContextPath}/resources/image/favicon.ico"/>
+	    <link rel="icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/image/favicon.ico"/>
+	    <h:outputStylesheet library="css" name="main.css"/>
+	    <h:outputStylesheet library="webjars" name="font-awesome/6.4.2/css/all.min-jsf.css" />
+		<h:outputStylesheet library="webjars" name="font-awesome/6.4.2/css/v4-shims.min-jsf.css" />						  
+	</h:head>
+
+	<h:body id="#{page}">
+
+    	<header>
+    		<div class="header-container">
+				
+				<div class="logo">
+				    <h:outputLink value="#{request.contextPath}/"><!-- <h:graphicImage name="logo.png" library="image" alt="Logo"/> -->
+						<h:graphicImage name="logo.png" library="image" alt="Logo"/>
+					</h:outputLink>
+				</div>
+				
+        		<h1>#{msg['template.title']}</h1>
+        		
+        		<h:panelGroup rendered="#{not userController.user.loggedIn}">
+	        		<h:form>
+	        			<div class="button-container">
+							<h:commandButton value="Login" action="#{indexController.goLogin}" styleClass="rounded-button"/>
+	                    	<h:commandButton value="Registro" action="#{indexController.goRegister}" styleClass="rounded-button"/>
+	        			</div>
+	        		</h:form>
+        		</h:panelGroup>
+        		
+        		<h:panelGroup rendered="#{userController.user.loggedIn}">
+	        		<div class="user-icon">
+	            		<h:form>
+							<div class="dropdown">
+	                			<h:commandLink action="/" styleClass="dropdown-toggle" onclick="toggleDropdown()">
+	                    			<i class="fa-solid fa-user"></i>
+	                			</h:commandLink>
+	                			<div class="dropdown-menu">
+	<!-- 								<h:link outcome="/" value="Perfil" styleClass="dropdown-item"/> -->
+	<!-- 								<h:link outcome="/" value="Configuración" styleClass="dropdown-item"/> -->
+									<h:commandLink action="#{userController.logout}" value="Cerrar sesión" styleClass="dropdown-item"/>
+	                			</div>
+	                		</div>
+	            		</h:form>
+	        		</div>
+        		</h:panelGroup>
+        		
+        	</div>
+	    </header>
+		
+		<div class="container">
+	     	
+	     	<ui:fragment rendered="#{userController.user.loggedIn}">
+		     	<nav>
+		            <h:form>
+		                <h:commandLink value="#{msg['template.nav.home']}" action="#{homeController.goHome}" /><br/><br/>
+		                <h:commandLink value="#{msg['template.nav.profile']}" action="#{homeController.goProfile}" /><br/><br/>
+		                <h:commandLink value="#{msg['template.nav.configuration']}" action="#{homeController.goSettings}" />
+		            </h:form>
+		        </nav>
+	        </ui:fragment>
+	        
+	        <main>
+	            <ui:insert name="content" />
+	        </main>
+		
+		</div>
+		
+		<footer>
+			<p>#{msg['template.footer']}</p>
+			<h:form class="language-switch">
+                <h:selectOneMenu value="#{localeBean.languageTag}">
+                	<f:selectItems value="#{localeBean.available}" var="l"
+                		itemValue="#{l.toLanguageTag()}" itemLabel="#{l.getDisplayLanguage(l)}">                    
+                    </f:selectItems>
+                    <f:ajax listener="#{localeBean.reload()}" />
+                </h:selectOneMenu>
+            </h:form>
+    	</footer>
+
+		<h:outputScript library="js" name="main.js" target="body" rendered="#{userController.user.loggedIn}"/>
+	</h:body>
+	
+</f:view>
+</html>

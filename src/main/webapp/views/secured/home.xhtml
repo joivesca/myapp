@@ -1,0 +1,11 @@
+<ui:composition template="/layout/page.xhtml"
+	xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets">
+
+	<ui:define name="content">
+    	<h:outputText value="Bienvenido, #{userController.user.username}"/>
+    	<h:commandButton value="Cerrar sesión" action="#{userController.logout}"/>
+	</ui:define>
+
+</ui:composition>
